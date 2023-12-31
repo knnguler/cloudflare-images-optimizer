@@ -48,11 +48,6 @@ async function handleRequest(request: Request): Promise<Response> {
 
 	const outputType = url.searchParams.get('type');
 	const quality = url.searchParams.get('quality');
-	const fit = url.searchParams.get('fit');
-
-	if (fit) {
-		options.cf.image.fit = fit as FIT_TYPE;
-	}
 
 	if (outputType) {
 		const size = OUTPUT_SIZES[outputType as OUTPUT_TYPE];
