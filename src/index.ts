@@ -5,7 +5,6 @@ type FORMAT_TYPE = 'avif' | 'webp' | 'json' | 'jpeg' | 'png';
 type OUTPUT_TYPE = 'thumbnail' | 'small' | 'medium' | 'large';
 
 const ALLOWED_SOURCE_ORIGINS = ['images.unsplash.com'];
-const ALLOWED_IP_LIST = ['00.00.00.00'];
 
 const OUTPUT_SIZES: { [key in OUTPUT_TYPE]: number } = {
 	thumbnail: 150,
@@ -33,16 +32,6 @@ export default {
 };
 
 async function handleRequest(request: Request): Promise<Response> {
-	const ip = request.headers.get('cf-connecting-ip');
-
-	if (!ip) {
-		return new Response('Missing ip header', { status: 400 });
-	}
-
-	if (!ALLOWED_IP_LIST.includes(ip)) {
-		return new Response('Unauthorized', { status: 400 });
-	}
-
 	const url = new URL(request.url);
 	const options: ImageOptions = { cf: { image: {} } };
 
